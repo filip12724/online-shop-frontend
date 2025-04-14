@@ -1,14 +1,14 @@
 <template>
-  <header-view></header-view>
-  <router-view/>
+  <main-layout>
+    <router-view/>
+  </main-layout>
 </template>
 
 <script>
-import headerView from "@/components/layout/headerView.vue";
-
+import mainLayout from './components/layout/mainLayout.vue';
 export default ({
   components:{
-    headerView
+    mainLayout
   }
 })
 </script>
