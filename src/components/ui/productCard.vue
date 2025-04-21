@@ -1,29 +1,35 @@
 <template>
-    <section class="md:w-1/2 flex justify-center items-start">
-      <div v-if="product" class="max-w-md w-full bg-[#FFFFFF] rounded-xl shadow-xl border-2 border-[#E0E0E0] overflow-hidden">
-
-        <a href="#" class="block relative">
-          <img class="w-full h-80 object-cover" :src="require('@/assets/images/basic.jpg')" 
-               :alt="product.name" />
-          <span class="absolute top-4 left-4 bg-[#1A1A1A] px-3 py-1 text-sm text-[#D4AF37] rounded-full font-medium">
-            {{ product.discount }}% OFF
+    <section class="w-full"> 
+    <div v-if="product" class="w-full bg-white rounded-xl shadow-xl border-2 border-light-neutral overflow-hidden">
+     
+      <a href="#" class="block relative w-full">
+        <img class="w-full h-80 object-cover" 
+             :src="require('@/assets/images/basic.jpg')" 
+             :alt="product.name" />
+          <span v-if="product.discount != null " class="absolute top-4 left-4 bg-[#1A1A1A] px-3 py-1 text-sm text-[#D4AF37] rounded-full font-medium">
+            {{ product.discount }}% OFF         
           </span>
         </a>
   
 
-        <div class="p-6">
-          <h5 class="text-2xl font-bold text-[#1A1A1A] mb-3">{{ product.name }}</h5>
-          <div class="flex items-center justify-between mb-5">
-            <div>
-              <span class="text-3xl font-bold text-[#D4AF37]">${{ calculatedPrice }}</span>
-              <span class="ml-2 text-lg text-[#1A1A1A] line-through">${{ product.price }}</span>
-            </div>
-            <div class="flex items-center">
-              <span class="ml-2 bg-[#E0E0E0] text-[#1A1A1A] text-xs font-semibold rounded px-2 py-0.5">
-                {{ formattedRating }}
-              </span>
-            </div>
+        <div class="p-6 w-full">
+          <h5 class="text-2xl font-bold text-primary-dark mb-3 min-h-[4.5rem]"> {{ product.name }}
+          </h5>
+        <div class="w-full flex items-center justify-between mb-5">
+       
+          <div class="w-full">
+            <span class="text-3xl font-bold text-accent-gold">${{ calculatedPrice }}</span>
+            <span class="ml-2 text-lg text-primary-dark line-through">${{ product.price }}</span>
           </div>
+          
+          <div class="flex-shrink-0">
+            <span class="bg-light-neutral text-primary-dark text-xs font-semibold rounded px-2 py-0.5">
+              {{ formattedRating }}
+            </span>
+          </div>
+        </div>
+
+
           <button 
             @click="handleAddToCart"
             class="w-full inline-flex items-center justify-center bg-[#1A1A1A] hover:bg-[#000000] text-[#FFFFFF] text-base font-semibold py-3 rounded-lg transition-colors duration-200"

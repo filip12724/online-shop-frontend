@@ -75,7 +75,6 @@ export default {
       return (price * (1 - discount / 100)).toFixed()
     },
     addToCart(product) {
-      // Add your add-to-cart logic here
       console.log("Product added to cart:", product)
     }
   }
