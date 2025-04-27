@@ -41,18 +41,19 @@
       :product="product"
       @add-to-cart="addToCart"
      />
-
+      <sliderView/>
  
 </template>
 
 <script>
 import axios from 'axios'
 import productCard from '@/components/ui/productCard.vue'
-
+import sliderView from '@/components/ui/sliderView.vue'
 export default {
   name: 'HomeView',
   components:{
-    productCard
+    productCard,
+    sliderView
   },
   data() {
     return {

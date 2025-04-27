@@ -6,8 +6,8 @@
         <img class="w-full h-80 object-cover" 
              :src="require('@/assets/images/basic.jpg')" 
              :alt="product.name" />
-          <span v-if="product.discount != null " class="absolute top-4 left-4 bg-[#1A1A1A] px-3 py-1 text-sm text-[#D4AF37] rounded-full font-medium">
-            {{ product.discount }}% OFF         
+          <span v-if="discountValue > 0 " class="absolute top-4 left-4 bg-[#1A1A1A] px-3 py-1 text-sm text-[#D4AF37] rounded-full font-medium">
+            {{ discountValue }}% OFF         
           </span>
         </a>
   
@@ -18,8 +18,8 @@
         <div class="w-full flex items-center justify-between mb-5">
        
           <div class="w-full">
-            <span class="text-3xl font-bold text-accent-gold">${{ calculatedPrice }}</span>
-            <span class="ml-2 text-lg text-primary-dark line-through">${{ product.price }}</span>
+            <span  class="text-3xl font-bold text-accent-gold">${{ calculatedPrice }}</span>
+            <span v-if="discountValue > 0 " class="ml-2 text-lg text-primary-dark line-through">${{ product.price.toFixed(0) }}</span>
           </div>
           
           <div class="flex-shrink-0">
@@ -54,22 +54,22 @@
       product: {
         type: Object,
         required: true,
-        validator: (value) => {
-          return [
-            'name',
-            'price',
-            'discount',
-            'rating'
-          ].every(prop => prop in value)
-        }
       }
     },
     computed: {
+      discountValue() {
+        if (!this.product.discounts.length) return 0;
+        // map to values and take the max
+        const values = this.product.discounts.map(d => d.value);
+        return Math.round(Math.max(...values));
+      },
       calculatedPrice() {
-        return (this.product.price * (1 - this.product.discount/100)).toFixed()
+        return (
+          this.product.price * (1 - this.discountValue / 100)
+        ).toFixed(0);
       },
       formattedRating() {
-        return this.product.rating.toFixed(1)
+        return this.product.rating.toFixed(0);
       }
     },
     methods: {
